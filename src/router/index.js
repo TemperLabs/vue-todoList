@@ -7,13 +7,13 @@ const routes = [
   {
     path: '/',
     name: 'AllTodos',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AllTodos.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/TodoDashboard.vue')
   },
   {
-    name: 'TodoList',
+    name: 'TodoListView',
     path: '/TodoList/:id',
     props: true,
-    component: () => import(/* webpackChunkName: "about" */ '../views/TodoList.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/TodoSingleView.vue')
   },
   { path: '/TodoList/:id', component: () => import(/* webpackChunkName: "about" */ '../components/TodoList.vue') }
 ]

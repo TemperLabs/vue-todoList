@@ -1,54 +1,77 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import { uuid as $uuid } from 'vue-uuid'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     AllTodoLists: [
       {
-        id: 1,
+        id: $uuid.v1(),
         title: 'yo',
-        completed: false,
+        createdAt: 1597717925952,
         todos: [{
-          id: 1,
-          title: 'yo',
+          id: 17,
+          title: 'hello',
           completed: false
         }]
       },
       {
-        id: 2,
+        id: $uuid.v1(),
         title: 'yoyoyoyo',
-        completed: false,
+        createdAt: 1597718063978,
         todos: [{
-          id: 1,
-          title: '2424242фыы',
+          id: $uuid.v1(),
+          title: 'ytoiyu',
           completed: false
         },
         {
-          id: 2,
-          title: 'фывфывыфв',
+          id: $uuid.v1(),
+          title: 'dasdsadsa',
           completed: false
         }]
       },
       {
-        id: 15,
-        title: 'Ы',
-        completed: false,
+        id: $uuid.v1(),
+        title: 'parent',
+        createdAt: 1597728863491,
         todos: [{
-          id: 1,
-          title: 'ження лох',
+          id: $uuid.v1(),
+          title: 'title343243',
           completed: false
         },
         {
-          id: 1,
-          title: 'живе беларусь',
+          id: $uuid.v1(),
+          title: 'title2',
           completed: false
         }]
       }
     ]
   },
+  getters: {
+    ALLTODOS: state => {
+      return state.AllTodoLists
+    }
+  },
   mutations: {
+    REMOVE_TODO_LIST: (state, todoList) => {
+      const index = state.AllTodoLists.findIndex(t => t.id === todoList.id)
+      state.AllTodoLists.splice(index, 1)
+    },
+    REMOVE_TODO_ITEM: (state, payload) => {
+      const List = state.AllTodoLists.find(l => l.id === payload.parentID).todos
+      const index = List.findIndex(t => t.id === payload.item.id)
+      List.splice(index, 1)
+    },
+    ADD_TODO_LIST: (state, newTodoTitle) => {
+      const newTodo = {
+        id: $uuid.v1(),
+        title: newTodoTitle,
+        createdAt: Date.now(),
+        todos: []
+      }
+      state.AllTodoLists.push(newTodo)
+    }
   },
   actions: {
     // getTodo({commit}, todo) {
@@ -60,14 +83,18 @@ export default new Vuex.Store({
     // editTodo({commit}, todo){
     //   commit(‘EDIT_TODO’, todo)
     // },
-    // removeTodo({commit}, todo){
-    //   commit(‘REMOVE_TODO’, todo)
-    // },
-    // completeTodo({commit}, todo){
-    //   commit(‘COMPLETE_TODO’, todo)
-    // },
-    // clearTodo({commit}){
-    //   commit('CLEAR_TODO')
+    addTodoList ({ commit }, newTodoTitle) {
+      commit('ADD_TODO_LIST', newTodoTitle)
+    },
+    removeTodoList ({ commit }, todoList) {
+      commit('REMOVE_TODO_LIST', todoList)
+    },
+    removeTodoItem ({ commit }, payload) {
+      commit('REMOVE_TODO_ITEM', payload)
+    },
+    completeTodo ({ commit }, todo) {
+      commit('COMPLETE_TODO_ITEM', todo)
+    }
   },
   modules: {
   }
