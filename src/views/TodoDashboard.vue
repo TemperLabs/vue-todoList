@@ -1,11 +1,13 @@
 <template>
   <div class="hello">
-    <div class="filter-by-name">
-      <label for="searchInput">Search title:</label>
-      <input type="text" v-model="searchText" placeholder="Search title.." id="searchInput"/>
-    </div>
-    <div class="sort-by-date">
-      <button @click="sortByDateUp = !sortByDateUp">sort by Date</button>
+    <div class="filters">
+      <div class="filter-by-name">
+        <label for="searchInput">Search title:</label>
+        <input type="text" v-model="searchText" placeholder="Search title.." id="searchInput"/>
+      </div>
+      <div class="sort-by-date">
+        <button @click="sortByDateUp = !sortByDateUp">sort by Date</button>
+      </div>
     </div>
     <ul>
       <todo-list
@@ -16,13 +18,8 @@
       </todo-list>
     </ul>
     <div>
-          <input type="text" v-model="newTodoTitle">
+        <input type="text" v-model="newTodoTitle">
         <button type="button" @click="addTodoList(newTodoTitle)">Add TODO LIST</button>
-      <button
-        class="button"
-        @click="uuid = $uuid.v4()"
-      >GEnerate {{uuid}}</button>
-      <h3>{{v1}}</h3>
     </div>
   </div>
 </template>
@@ -84,5 +81,13 @@ export default {
   }
   a {
     color: #42b983;
+  }
+  .filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .filter-by-name {
+    margin-right: 20px;
   }
 </style>

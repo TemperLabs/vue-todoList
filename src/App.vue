@@ -18,8 +18,13 @@
 * {
   box-sizing: border-box
 }
+button {
+  outline: none;
+}
 ul,li,ol {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 #nav {
   padding: 30px;

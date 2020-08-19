@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     AllTodoLists: [
       {
-        id: $uuid.v1(),
+        id: 'dajsdhjkshdkj',
         title: 'yo',
         createdAt: 1597717925952,
         todos: [{
@@ -17,7 +17,7 @@ export default new Vuex.Store({
         }]
       },
       {
-        id: $uuid.v1(),
+        id: 'dajssaakshdkj',
         title: 'yoyoyoyo',
         createdAt: 1597718063978,
         todos: [{
@@ -28,11 +28,11 @@ export default new Vuex.Store({
         {
           id: $uuid.v1(),
           title: 'dasdsadsa',
-          completed: false
+          completed: true
         }]
       },
       {
-        id: $uuid.v1(),
+        id: 'daajsppkshdkj',
         title: 'parent',
         createdAt: 1597728863491,
         todos: [{
@@ -63,6 +63,15 @@ export default new Vuex.Store({
       const index = List.findIndex(t => t.id === payload.item.id)
       List.splice(index, 1)
     },
+    ADD_TODO_ITEM: (state, payload) => {
+      const list = state.AllTodoLists.find(l => l.id === payload.LIST_ID).todos
+      const newTodoItem = {
+        id: $uuid.v1(),
+        title: payload.newTodoTitle,
+        completed: false
+      }
+      list.push(newTodoItem)
+    },
     ADD_TODO_LIST: (state, newTodoTitle) => {
       const newTodo = {
         id: $uuid.v1(),
@@ -71,20 +80,23 @@ export default new Vuex.Store({
         todos: []
       }
       state.AllTodoLists.push(newTodo)
+    },
+    SAVE_TODO_ITEM: (state, payload) => {
+      const list = state.AllTodoLists.find(l => l.id === payload.todoListID).todos
+      list.find(t => t.id === payload.todoItem.id).title = payload.tempTitle
+    },
+    TOGGLE_COMPLETE_TODO_ITEM: (state, payload) => {
+      const list = state.AllTodoLists.find(l => l.id === payload.todoListID).todos
+      const todo = list.find(t => t.id === payload.todoItem.id)
+      todo.completed = !todo.completed
     }
   },
   actions: {
-    // getTodo({commit}, todo) {
-    //   commit(‘GET_TODO’, todo)
-    // },
-    // addTodo({commit}){
-    //   commit(‘ADD_TODO’)
-    // },
-    // editTodo({commit}, todo){
-    //   commit(‘EDIT_TODO’, todo)
-    // },
     addTodoList ({ commit }, newTodoTitle) {
       commit('ADD_TODO_LIST', newTodoTitle)
+    },
+    addTodoItem ({ commit }, newTodoTitle) {
+      commit('ADD_TODO_ITEM', newTodoTitle)
     },
     removeTodoList ({ commit }, todoList) {
       commit('REMOVE_TODO_LIST', todoList)
@@ -94,6 +106,13 @@ export default new Vuex.Store({
     },
     completeTodo ({ commit }, todo) {
       commit('COMPLETE_TODO_ITEM', todo)
+    },
+    saveTodoItem ({ commit }, payload) {
+      console.log(payload)
+      commit('SAVE_TODO_ITEM', payload)
+    },
+    toggleCompleteTodoItem ({ commit }, payload) {
+      commit('TOGGLE_COMPLETE_TODO_ITEM', payload)
     }
   },
   modules: {

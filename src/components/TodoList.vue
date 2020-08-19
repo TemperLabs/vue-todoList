@@ -5,17 +5,11 @@
   </router-link>
   <div class="todo-list-title">{{todoList.id}}</div>
   <div class="todo-list-content">
-    <ul>
-    <li v-for="TodoItem in todoList.todos" :key="TodoItem.id">
+    <ul class="todolist-content-ul">
+    <li v-for="TodoItem in todoList.todos" :key="TodoItem.id" class="todolist-content-li">
       <span>{{TodoItem.title}}</span>
     </li>
     </ul>
-    <todo-list
-      v-for="todoList in ALLTODOS"
-      :key="todoList.id"
-      :todoList="todoList"
-    >
-    </todo-list>
     <button type="button" @click="removeTodoList(todoList)">Delete TODOLIST</button>
   </div>
 </div>
@@ -71,5 +65,14 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+  .todolist-content-ul {
+    padding: 0 12px;
+  }
+  .todolist-content-li {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    border-bottom: 1px solid #979797;
   }
 </style>
