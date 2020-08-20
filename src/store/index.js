@@ -108,7 +108,6 @@ export default new Vuex.Store({
       commit('COMPLETE_TODO_ITEM', todo)
     },
     saveTodoItem ({ commit }, payload) {
-      console.log(payload)
       commit('SAVE_TODO_ITEM', payload)
     },
     toggleCompleteTodoItem ({ commit }, payload) {

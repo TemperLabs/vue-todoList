@@ -18,8 +18,8 @@
       </todo-list>
     </ul>
     <div>
-        <input type="text" v-model="newTodoTitle">
-        <button type="button" @click="addTodoList(newTodoTitle)">Add TODO LIST</button>
+        <input type="text" v-model="newTodoListTitle">
+        <button type="button" @click="updateTodoListTitle(newTodoListTitle)">Add TODO LIST</button>
     </div>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
   components: { TodoList },
   data: function () {
     return {
-      newTodoTitle: '',
+      newTodoListTitle: '',
       searchText: '',
       sortByDateUp: true,
       v1: $uuid.v1(),
@@ -45,7 +45,7 @@ export default {
       'ALLTODOS'
     ]),
     filteredTODOList () {
-      return this.ALLTODOS.filter(doctor => doctor.title.toLowerCase().includes(this.searchText.toLowerCase()))
+      return this.ALLTODOS.filter(t => t.title.toLowerCase().includes(this.searchText.toLowerCase()))
     },
     sortedItems: function () {
       return [...this.filteredTODOList].sort((a, b) => {
@@ -57,11 +57,12 @@ export default {
   },
   methods: {
     ...mapActions([
-      'addTodoList'
-    ]),
-    ...mapActions([
       'removeTodoList'
-    ])
+    ]),
+    updateTodoListTitle: function (payload) {
+      this.$store.dispatch('addTodoList', payload)
+      this.newTodoListTitle = ''
+    }
   }
 }
 </script>

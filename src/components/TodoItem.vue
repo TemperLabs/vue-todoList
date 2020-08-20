@@ -12,11 +12,15 @@
   >
     <div class="field">
       <div v-if="!isEditing">
-        <span class='field-text'>{{todoItem.title}}</span>
-        <button class="btn-edit" @click="enableEditing">EDIT</button>
+        <span class='field-text' @dblclick="enableEditing">{{todoItem.title}}</span>
       </div>
       <div v-if="isEditing">
-        <input v-model="tempTitle" class="input"/>
+        <input
+          v-model="tempTitle"
+          class="todo-item-input"
+          ref="todoInput"
+          @keyup.enter="saveEdit({todoItem:todoItem, todoListID, tempTitle})"
+          @keyup.escape="disableEditing"/>
         <button @click="disableEditing"> Cancel </button>
         <button @click="saveEdit({todoItem:todoItem, todoListID, tempTitle})"> Save </button>
       </div>
@@ -60,8 +64,10 @@ export default {
     },
     enableEditing: function () {
       this.tempTitle = this.todoItem.title
-      console.log(this.tempTitle)
       this.isEditing = true
+      this.$nextTick(() => {
+        this.$refs.todoInput.focus()
+      })
     },
     disableEditing: function () {
       this.tempTitle = null

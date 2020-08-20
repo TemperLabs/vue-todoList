@@ -20,14 +20,14 @@
     <label>
       <input type="text" v-model="newTodoTitle">
     </label>
-    <button type="button" @click="addTodoItem({newTodoTitle:newTodoTitle, LIST_ID:todoList.id})">Add TODO ITEM</button>
+    <button type="button" @click="updateTodoTitle({newTodoTitle, LIST_ID:todoList.id})">Add TODO ITEM</button>
   </div>
 </template>
 
 <script>
 import TodoItem from '../components/TodoItem'
-import { mapActions, mapGetters } from 'vuex'
-// import { uuid as $uuid } from 'vue-uuid'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'TodoList',
   components: { TodoItem },
@@ -45,9 +45,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'addTodoItem'
-    ])
+    updateTodoTitle: function (payload) {
+      this.$store.dispatch('addTodoItem', payload)
+      this.newTodoTitle = ''
+    }
   },
   computed: {
     filteredTODOS: function () {
