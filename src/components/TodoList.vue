@@ -44,6 +44,8 @@ export default {
   .todo-list {
     display: inline-flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
   }
   .todo-list-wrap {
     position: relative;
