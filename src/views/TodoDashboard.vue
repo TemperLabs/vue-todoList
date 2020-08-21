@@ -9,7 +9,7 @@
         <button @click="sortByDateUp = !sortByDateUp">sort by Date</button>
       </div>
     </div>
-    <ul>
+    <ul class="todolist-ul">
       <todo-list
         v-for="todoList in sortedItems"
         :key="todoList.id"
@@ -82,6 +82,12 @@ export default {
   }
   a {
     color: #42b983;
+  }
+  .todolist-ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
   }
   .filters {
     display: flex;

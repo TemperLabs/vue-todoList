@@ -1,4 +1,5 @@
 <template>
+<div class="todo-list">
 <div class="todo-list-wrap">
   <router-link :to="{ name: 'TodoListView', params: { todoList, id: todoList.id }}" class="todo-list-link"></router-link>
   <div class="todo-list-title">{{todoList.title}}</div>
@@ -8,8 +9,9 @@
       <span>{{TodoItem.title}}</span>
     </li>
     </ul>
-    <button type="button" @click="removeTodoList(todoList)">Delete TODOLIST</button>
   </div>
+</div>
+  <button  class="delete-todo-btn" type="button" @click="removeTodoList(todoList)">Delete TODOLIST</button>
 </div>
 </template>
 
@@ -39,6 +41,10 @@ export default {
 </script>
 
 <style scoped>
+  .todo-list {
+    display: inline-flex;
+    flex-direction: column;
+  }
   .todo-list-wrap {
     position: relative;
     width: 200px;

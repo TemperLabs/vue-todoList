@@ -20,7 +20,8 @@
           class="todo-item-input"
           ref="todoInput"
           @keyup.enter="saveEdit({todoItem:todoItem, todoListID, tempTitle})"
-          @keyup.escape="disableEditing"/>
+          @keyup.escape="disableEditing"
+          v-click-outside="disableEditing"/>
         <button @click="disableEditing"> Cancel </button>
         <button @click="saveEdit({todoItem:todoItem, todoListID, tempTitle})"> Save </button>
       </div>
@@ -58,7 +59,6 @@ export default {
       'toggleCompleteTodoItem'
     ]),
     saveEdit: function (payload) {
-      console.log(1)
       this.disableEditing()
       this.$store.dispatch('saveTodoItem', payload)
     },
@@ -79,6 +79,7 @@ export default {
 
 <style lang="scss" scoped>
   .completed {
+    pointer-events: none;
     position: relative;
     &:before {
       position: absolute;
